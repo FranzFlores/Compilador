@@ -35,11 +35,97 @@ public class LexicalAnalyzer {
         for (int i = 0; i < tokens.size(); i++) {
             System.out.println("TOKEN: " + tokens.get(i) + " LEXEMA: " + lexemes.get(i));
         }
+        
     }
 
     //Proceso de Autómata
     public void process() {
+        //Obetener caracter de entrada
+        character = input.charAt(position);
         
+        switch(status) {
+            case 0:
+               if(u.verifyChar(u.getSymbols(), String.valueOf(character))) {
+                  lexeme += Character.toString(character);
+                  status = 0;
+                switch(character) {
+                    case '+':
+                        loadLexeme(lexeme, Tokens.SUMA.toString());
+                        lexeme = "";
+                    break;
+                    case '-':
+                        loadLexeme(lexeme, Tokens.RESTA.toString());
+                        lexeme = "";
+                    break;
+                    case '*':
+                        loadLexeme(lexeme, Tokens.MULTIPLICACION.toString());
+                        lexeme = "";
+                    break;
+                    case '=':
+                        status = 4;
+                    break;
+                    case ';':
+                        loadLexeme(lexeme, Tokens.SEPARACION.toString());
+                        lexeme = "";
+                    break;
+                    default: break;
+                  }  
+               } else if(Character.isDigit(character)) {
+                    lexeme += Character.toString(character);
+                    status = 8;
+               } else if(Character.isLetter(character)) {
+                   lexeme += Character.toString(character);
+                   if(character == 'x') {
+                        loadLexeme(lexeme, Tokens.VARIABLEX.toString());
+                        lexeme = "";
+                   } else if(character == 'y') {
+                        loadLexeme(lexeme, Tokens.VARIABLEY.toString());
+                        lexeme = "";
+                   } else if(character == 'E'){
+                       status = 14;
+                   } else if(character == 's'){
+                       status = 19;
+                   } 
+               } else {
+                    lexeme += Character.toString(character);
+                    loadLexeme(lexeme, Tokens.ERROR.toString());
+                    lexeme = "";  
+                    status = 0;
+               }
+            break;
+            case 4:
+                status = 0;
+                if(u.verifyChar(u.getSymbols(), String.valueOf(character))) {
+                    if(character == '>') {
+                        lexeme += Character.toString(character);
+                        loadLexeme(lexeme, Tokens.ASIGNACION.toString());
+                        lexeme = ""; 
+                   } else {
+                       loadSymbol(Tokens.IGUALDAD.toString());
+                       lexeme = "";
+                   }
+                } else if(Character.isDigit(character)) {
+                    loadSymbol(Tokens.IGUALDAD.toString());
+                    lexeme = "";
+                    status = 8;
+                    lexeme += Character.toString(character);
+               } else if(Character.isLetter(character)) {
+                    loadLetter(Tokens.IGUALDAD.toString());
+               }  else {
+                   loadLexeme(lexeme, Tokens.ERROR.toString());
+                   lexeme = "";
+               }
+            break;
+            case 8:
+            
+            break;
+            default: break;
+        }
+        position++;
+        if(position >= input.length()) {
+        } else {
+            process();
+        }
     }
 
     //Almacenar lexemas y tokens
@@ -76,10 +162,29 @@ public class LexicalAnalyzer {
         }
     }
     
+    private void loadLetter(String tokenType) {
+        loadLexeme(lexeme, tokenType);
+        lexeme = "";
+        lexeme += Character.toString(character);
+        if(character == 'x') {
+            loadLexeme(lexeme, Tokens.VARIABLEX.toString());
+            lexeme = "";
+            status = 0;
+        } else if(character == 'y') {
+            loadLexeme(lexeme, Tokens.VARIABLEY.toString());
+            lexeme = "";
+            status = 0;
+        } else if(character == 'E'){
+            status = 14;
+        } else if(character == 's'){
+            status = 19;
+        } 
+    }
+    
     
     //Método Principal
     public static void main(String args[]) {
-        String input = "var a, = 98 + 56 print a";
+        String input = "+-*=;=>xy=>+-*;xy@";
         LexicalAnalyzer lexical = new LexicalAnalyzer(input);
         lexical.process();
         lexical.printResults();
