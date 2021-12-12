@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import models.Types;
 
 /**
  *
@@ -18,60 +19,52 @@ import java.util.regex.Pattern;
 public class LexicalAnalyzer {
 
     public static List<Token> lexico(String input) {
-        List<Token> tokens = new ArrayList<Token>();
+        List<Token> tokens = new ArrayList<>();
         //Separar el punto y coma
         if (input.contains(";")) {
-          input = input.replace(";"," ;");
+            input = input.replace(";", " ;");
+        } 
+         //Separar multiplicación
+        if(input.contains("*")) {
+            input = input.replace("*", " * ");
         }
-        //
+
         StringTokenizer tokenizer = new StringTokenizer(input);
-        //
+
         while (tokenizer.hasMoreElements()) {
-            String palabra = tokenizer.nextToken(); //Para el siguiente
-            System.out.println("ingresa " + palabra);
-            
+            String word = tokenizer.nextToken(); //Para el siguiente
             boolean matched = false;
-            for (Tipos tokentipo : Tipos.values()) {
-                Pattern patron = Pattern.compile(tokentipo.patron);
-                //System.out.println("patron " + patron);
-                Matcher matcher = patron.matcher(palabra); //Verificar si coincide con la palabra
-                //System.out.println("matcher " + palabra);
+            for (Types tokentype : Types.values()) {
+                Pattern patron = Pattern.compile(tokentype.pattern);
+                Matcher matcher = patron.matcher(word); //Verificar si coincide con la palabra
                 if (matcher.find()) {
-                    
                     Token token = new Token();
-                    //System.out.println("tokentipo " + tokentipo);
-                    token.setTipo(tokentipo);
-                    //System.out.println("palabra " + palabra);
-                    token.setValor(palabra);
+                    token.setType(tokentype);
+                    token.setValue(word);
                     tokens.add(token);
                     matched = true;
                     break;
                 }
             }
             if (!matched) {
-                //throw  new RuntimeException("Token INVALIDO "+palabra);
                 Token token = new Token();
-                token.setTipo(null);
-                token.setValor(palabra);
+                token.setType(null);
+                token.setValue(word);
                 tokens.add(token);
-                //throw  new RuntimeException("Token INVALIDO "+palabra);
             }
         }
         return tokens;
     }
 
     public static void main(String[] args) {
-        String input = "SOLUCIONAR EC3 => 6x + 4y = 9.766432434 SOLUCIONRA -4 +5 /6 *3 4x;";
+        String input = "EC1 => -2*x + 3*y = 5; \n EC2 => 3*x - 3.5*y = 3; \n solucionar" ;
         List<Token> lista = lexico(input);
-        for (Token token : lista) {
-            if(token.getTipo() !=null){
-                System.out.println(token.getTipo().toString() + " " + token.getValor());
+        lista.forEach(token -> {
+            if (token.getType() != null) {
+                System.out.println(token.getType().toString() + " " + token.getValue());
+            } else {
+                System.out.println("ERROR" + " " + token.getValue());
             }
-            else{
-                System.out.println("ERROR" + " "+token.getValor());
-            }
-            
-        }
+        });
     }
-    
 }
