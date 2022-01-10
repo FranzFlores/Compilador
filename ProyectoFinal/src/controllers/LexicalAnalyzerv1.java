@@ -7,7 +7,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.Tokens;
+import models.Tokensv1;
 
 /**
  *
@@ -17,7 +17,7 @@ public class LexicalAnalyzerv1 {
     
     private Integer position = 0; //Posicion de la cadena
     private Integer status = 0; //Estado del autómata
-    private List<String> tokens = new ArrayList<String>(); //Arreglo de Tokens
+    private List<String> tokens = new ArrayList<String>(); //Arreglo de Tokensv1
     private List<String> lexemes = new ArrayList<String>(); //Arreglo de Lexemas
     private String lexeme = ""; //Lexema:Se obtiene del recorrido de la cadena
     private String input; //Entrada de datos
@@ -50,22 +50,22 @@ public class LexicalAnalyzerv1 {
                   status = 0;
                 switch(character) {
                     case '+':
-                        loadLexeme(lexeme, Tokens.SUMA.toString());
+                        loadLexeme(lexeme, Tokensv1.SUMA.toString());
                         lexeme = "";
                     break;
                     case '-':
-                        loadLexeme(lexeme, Tokens.RESTA.toString());
+                        loadLexeme(lexeme, Tokensv1.RESTA.toString());
                         lexeme = "";
                     break;
                     case '*':
-                        loadLexeme(lexeme, Tokens.MULTIPLICACION.toString());
+                        loadLexeme(lexeme, Tokensv1.MULTIPLICACION.toString());
                         lexeme = "";
                     break;
                     case '=':
                         status = 4;
                     break;
                     case ';':
-                        loadLexeme(lexeme, Tokens.SEPARACION.toString());
+                        loadLexeme(lexeme, Tokensv1.SEPARACION.toString());
                         lexeme = "";
                     break;
                     default: break;
@@ -76,10 +76,10 @@ public class LexicalAnalyzerv1 {
                } else if(Character.isLetter(character)) {
                    lexeme += Character.toString(character);
                    if(character == 'x') {
-                        loadLexeme(lexeme, Tokens.VARIABLEX.toString());
+                        loadLexeme(lexeme, Tokensv1.VARIABLEX.toString());
                         lexeme = "";
                    } else if(character == 'y') {
-                        loadLexeme(lexeme, Tokens.VARIABLEY.toString());
+                        loadLexeme(lexeme, Tokensv1.VARIABLEY.toString());
                         lexeme = "";
                    } else if(character == 'E'){
                        status = 14;
@@ -88,7 +88,7 @@ public class LexicalAnalyzerv1 {
                    } 
                } else {
                     lexeme += Character.toString(character);
-                    loadLexeme(lexeme, Tokens.ERROR.toString());
+                    loadLexeme(lexeme, Tokensv1.ERROR.toString());
                     lexeme = "";  
                     status = 0;
                }
@@ -98,21 +98,21 @@ public class LexicalAnalyzerv1 {
                 if(u.verifyChar(u.getSymbols(), String.valueOf(character))) {
                     if(character == '>') {
                         lexeme += Character.toString(character);
-                        loadLexeme(lexeme, Tokens.ASIGNACION.toString());
+                        loadLexeme(lexeme, Tokensv1.ASIGNACION.toString());
                         lexeme = ""; 
                    } else {
-                       loadSymbol(Tokens.IGUALDAD.toString());
+                       loadSymbol(Tokensv1.IGUALDAD.toString());
                        lexeme = "";
                    }
                 } else if(Character.isDigit(character)) {
-                    loadSymbol(Tokens.IGUALDAD.toString());
+                    loadSymbol(Tokensv1.IGUALDAD.toString());
                     lexeme = "";
                     status = 8;
                     lexeme += Character.toString(character);
                } else if(Character.isLetter(character)) {
-                    loadLetter(Tokens.IGUALDAD.toString());
+                    loadLetter(Tokensv1.IGUALDAD.toString());
                }  else {
-                   loadLexeme(lexeme, Tokens.ERROR.toString());
+                   loadLexeme(lexeme, Tokensv1.ERROR.toString());
                    lexeme = "";
                }
             break;
@@ -143,19 +143,19 @@ public class LexicalAnalyzerv1 {
         
         switch(character) {
             case '+':
-                loadLexeme(lexeme, Tokens.SUMA.toString());
+                loadLexeme(lexeme, Tokensv1.SUMA.toString());
                 lexeme = "";
             break;
             case '-':
-                loadLexeme(lexeme, Tokens.RESTA.toString());
+                loadLexeme(lexeme, Tokensv1.RESTA.toString());
                 lexeme = "";
             break;
             case '*':
-                loadLexeme(lexeme, Tokens.MULTIPLICACION.toString());
+                loadLexeme(lexeme, Tokensv1.MULTIPLICACION.toString());
                 lexeme = "";
             break;
             case ';':
-                loadLexeme(lexeme, Tokens.SEPARACION.toString());
+                loadLexeme(lexeme, Tokensv1.SEPARACION.toString());
                 lexeme = "";
             break;
             default: break;
@@ -167,11 +167,11 @@ public class LexicalAnalyzerv1 {
         lexeme = "";
         lexeme += Character.toString(character);
         if(character == 'x') {
-            loadLexeme(lexeme, Tokens.VARIABLEX.toString());
+            loadLexeme(lexeme, Tokensv1.VARIABLEX.toString());
             lexeme = "";
             status = 0;
         } else if(character == 'y') {
-            loadLexeme(lexeme, Tokens.VARIABLEY.toString());
+            loadLexeme(lexeme, Tokensv1.VARIABLEY.toString());
             lexeme = "";
             status = 0;
         } else if(character == 'E'){

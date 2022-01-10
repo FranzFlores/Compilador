@@ -5,66 +5,96 @@
  */
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import models.Types;
+import java.io.File;
+import java.io.FileReader;
+import jflex.Main;
+import models.Tokens;
 
 /**
  *
- * @author 59399
+ * @author Smart
  */
 public class LexicalAnalyzer {
-
-    public static List<Token> lexico(String input) {
-        List<Token> tokens = new ArrayList<>();
-        //Separar el punto y coma
-        if (input.contains(";")) {
-            input = input.replace(";", " ;");
-        } 
-         //Separar multiplicación
-        if(input.contains("*")) {
-            input = input.replace("*", " * ");
-        }
-
-        StringTokenizer tokenizer = new StringTokenizer(input);
-
-        while (tokenizer.hasMoreElements()) {
-            String word = tokenizer.nextToken(); //Para el siguiente
-            boolean matched = false;
-            for (Types tokentype : Types.values()) {
-                Pattern patron = Pattern.compile(tokentype.pattern);
-                Matcher matcher = patron.matcher(word); //Verificar si coincide con la palabra
-                if (matcher.find()) {
-                    Token token = new Token();
-                    token.setType(tokentype);
-                    token.setValue(word);
-                    tokens.add(token);
-                    matched = true;
-                    break;
-                }
-            }
-            if (!matched) {
-                Token token = new Token();
-                token.setType(null);
-                token.setValue(word);
-                tokens.add(token);
-            }
-        }
-        return tokens;
-    }
+    
+    private static String path = "data" + File.separatorChar;
 
     public static void main(String[] args) {
-        String input = "EC1 => -2*x + 3*y = 5; \n EC2 => 3*x - 3.5*y = 3; \n solucionar" ;
-        List<Token> lista = lexico(input);
-        lista.forEach(token -> {
-            if (token.getType() != null) {
-                System.out.println(token.getType().toString() + " " + token.getValue());
-            } else {
-                System.out.println("ERROR" + " " + token.getValue());
+
+//        generateFile();
+        evaluateData();
+    }
+    
+     public static void generateFile() {
+        try {
+            String[] files = {(path + "Lexer.flex")};
+            Main.generate(files);
+        } catch (Exception e) {
+            System.out.println("Error en generar archivo" + e);
+        }
+    }
+
+    public static void evaluateData() {
+        try {
+            Lexer lexer = new Lexer(new FileReader(path + "code.jcr"));
+            String result = "";
+            while (true) {
+                Tokens token = lexer.yylex();
+                if (token == null) {
+                    result += "FIN";
+                    break;
+                }
+                switch (token) {
+                    case SUMA:
+                        result += lexer.lexem + " Es una suma";
+                        break;
+                    case RESTA:
+                        result += lexer.lexem + " Es una resta";
+                        break;
+                    case MULTIPLICACION:
+                        result += lexer.lexem + " Es una multiplicación";
+                        break;
+                    case ASIGNACION:
+                        result += lexer.lexem + " Es una asignación";
+                        break;
+                    case IGUALDAD:
+                        result += lexer.lexem + " Es una igualdad";
+                        break;
+                    case SEPARADOR:
+                        result += lexer.lexem + " Es un separador";
+                        break;
+                    case ENTERO_POSITIVO:
+                        result += lexer.lexem + " Es un número entero positivo";
+                        break;
+                    case ENTERO_NEGATIVO:
+                        result += lexer.lexem + " Es un número entero negativo";
+                        break;
+                    case DECIMAL_POSITIVO:
+                        result += lexer.lexem + " Es un número decimal positivo";
+                        break;
+                    case DECIMAL_NEGATIVO:
+                        result += lexer.lexem + " Es un número decimal negativo";
+                        break;
+                    case VARIABLEX:
+                        result += lexer.lexem + " Es la variable X";
+                        break;
+                    case VARIABLEY:
+                        result += lexer.lexem + " Es la variable Y";
+                        break;
+                    case ECUACION:
+                        result += lexer.lexem + " Es una ecuación";
+                        break;
+                    case PALABRA_RESERVADA:
+                        result += lexer.lexem + " Es la palabra reservada solucionar";
+                        break;
+                    case ERROR:
+                        result += lexer.lexem + " Es un símbolo desconocido";
+                        break;
+                }
+                System.out.println(result);
+                result = "";
             }
-        });
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
     }
 }
