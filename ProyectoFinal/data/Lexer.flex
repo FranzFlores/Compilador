@@ -23,8 +23,7 @@ space=[ ,\t,\r,\n ]+
 "//".* {/*Ignore*/}
 "+" {lexem=yytext(); return Tokens.SUMA;}
 "-" {lexem=yytext(); return Tokens.RESTA;}
-"*" {lexem=yytext(); return Tokens.MULTIPLICACION;}
-"=>" {lexem=yytext(); return Tokens.ASIGNACION;}
+":" {lexem=yytext(); return Tokens.ASIGNACION;}
 "=" {lexem=yytext(); return Tokens.IGUALDAD;}
 ";" {lexem=yytext(); return Tokens.SEPARADOR;}
 {P}+ {lexem=yytext(); return Tokens.ENTERO_POSITIVO;}

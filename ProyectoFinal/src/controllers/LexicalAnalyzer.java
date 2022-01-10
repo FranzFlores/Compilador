@@ -20,7 +20,7 @@ public class LexicalAnalyzer {
 
     public static void main(String[] args) {
 
-//        generateFile();
+//            generateFile();
         evaluateData();
     }
     
@@ -49,9 +49,6 @@ public class LexicalAnalyzer {
                         break;
                     case RESTA:
                         result += lexer.lexem + " Es una resta";
-                        break;
-                    case MULTIPLICACION:
-                        result += lexer.lexem + " Es una multiplicación";
                         break;
                     case ASIGNACION:
                         result += lexer.lexem + " Es una asignación";
