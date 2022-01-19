@@ -34,64 +34,64 @@ public class LexicalAnalyzer {
     }
 
     public static void evaluateData() {
-        try {
-            Lexer lexer = new Lexer(new FileReader(path + "code.jcr"));
-            String result = "";
-            while (true) {
-                Tokens token = lexer.yylex();
-                if (token == null) {
-                    result += "FIN";
-                    break;
-                }
-                switch (token) {
-                    case SUMA:
-                        result += lexer.lexem + " Es una suma";
-                        break;
-                    case RESTA:
-                        result += lexer.lexem + " Es una resta";
-                        break;
-                    case ASIGNACION:
-                        result += lexer.lexem + " Es una asignación";
-                        break;
-                    case IGUALDAD:
-                        result += lexer.lexem + " Es una igualdad";
-                        break;
-                    case SEPARADOR:
-                        result += lexer.lexem + " Es un separador";
-                        break;
-                    case ENTERO_POSITIVO:
-                        result += lexer.lexem + " Es un número entero positivo";
-                        break;
-                    case ENTERO_NEGATIVO:
-                        result += lexer.lexem + " Es un número entero negativo";
-                        break;
-                    case DECIMAL_POSITIVO:
-                        result += lexer.lexem + " Es un número decimal positivo";
-                        break;
-                    case DECIMAL_NEGATIVO:
-                        result += lexer.lexem + " Es un número decimal negativo";
-                        break;
-                    case VARIABLEX:
-                        result += lexer.lexem + " Es la variable X";
-                        break;
-                    case VARIABLEY:
-                        result += lexer.lexem + " Es la variable Y";
-                        break;
-                    case ECUACION:
-                        result += lexer.lexem + " Es una ecuación";
-                        break;
-                    case PALABRA_RESERVADA:
-                        result += lexer.lexem + " Es la palabra reservada solucionar";
-                        break;
-                    case ERROR:
-                        result += lexer.lexem + " Es un símbolo desconocido";
-                        break;
-                }
-                System.out.println(result);
-                result = "";
-            }
-        } catch (Exception e) {
-            System.out.println("Error" + e);
-        }
-    }
+//        try {
+//            Lexer lexer = new Lexer(new FileReader(path + "code.jcr"));
+//            String result = "";
+//            while (true) {
+//                Tokens token = lexer.yylex();
+//                if (token == null) {
+//                    result += "FIN";
+//                    break;
+//                }
+//                switch (token) {
+//                    case SUMA:
+//                        result += lexer.lexem + " Es una suma";
+//                        break;
+//                    case RESTA:
+//                        result += lexer.lexem + " Es una resta";
+//                        break;
+//                    case ASIGNACION:
+//                        result += lexer.lexem + " Es una asignación";
+//                        break;
+//                    case IGUALDAD:
+//                        result += lexer.lexem + " Es una igualdad";
+//                        break;
+//                    case SEPARADOR:
+//                        result += lexer.lexem + " Es un separador";
+//                        break;
+//                    case ENTERO_POSITIVO:
+//                        result += lexer.lexem + " Es un número entero positivo";
+//                        break;
+//                    case ENTERO_NEGATIVO:
+//                        result += lexer.lexem + " Es un número entero negativo";
+//                        break;
+//                    case DECIMAL_POSITIVO:
+//                        result += lexer.lexem + " Es un número decimal positivo";
+//                        break;
+//                    case DECIMAL_NEGATIVO:
+//                        result += lexer.lexem + " Es un número decimal negativo";
+//                        break;
+//                    case VARIABLEX:
+//                        result += lexer.lexem + " Es la variable X";
+//                        break;
+//                    case VARIABLEY:
+//                        result += lexer.lexem + " Es la variable Y";
+//                        break;
+//                    case ECUACION:
+//                        result += lexer.lexem + " Es una ecuación";
+//                        break;
+//                    case PALABRA_RESERVADA:
+//                        result += lexer.lexem + " Es la palabra reservada solucionar";
+//                        break;
+//                    case ERROR:
+//                        result += lexer.lexem + " Es un símbolo desconocido";
+//                        break;
+//                }
+//                System.out.println(result);
+//                result = "";
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error" + e);
+//        }
+   }
 }

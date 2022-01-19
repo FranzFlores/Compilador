@@ -3,11 +3,11 @@
 // source: data/Lexer.flex
 
 package controllers;
-import models.Tokens;
+import java_cup.runtime.Symbol;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-class Lexer {
+class LexerCup implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -29,65 +29,26 @@ class Lexer {
   };
 
   /**
-   * Top-level table for translating characters to character classes
+   * Translates characters to character classes
    */
-  private static final int [] ZZ_CMAP_TOP = zzUnpackcmap_top();
-
-  private static final String ZZ_CMAP_TOP_PACKED_0 =
-    "\1\0\37\u0100\1\u0200\267\u0100\10\u0300\u1020\u0100";
-
-  private static int [] zzUnpackcmap_top() {
-    int [] result = new int[4352];
-    int offset = 0;
-    offset = zzUnpackcmap_top(ZZ_CMAP_TOP_PACKED_0, offset, result);
-    return result;
-  }
-
-  private static int zzUnpackcmap_top(String packed, int offset, int [] result) {
-    int i = 0;       /* index in packed string  */
-    int j = offset;  /* index in unpacked array */
-    int l = packed.length();
-    while (i < l) {
-      int count = packed.charAt(i++);
-      int value = packed.charAt(i++);
-      do result[j++] = value; while (--count > 0);
-    }
-    return j;
-  }
-
-
-  /**
-   * Second-level tables for translating characters to character classes
-   */
-  private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
-
-  private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\11\0\1\1\1\2\2\3\1\2\22\0\1\1\12\0"+
-    "\1\4\1\1\1\5\1\6\1\7\1\10\2\11\7\12"+
-    "\1\13\1\14\1\0\1\15\5\0\1\16\1\0\1\17"+
-    "\33\0\1\20\1\0\1\21\5\0\1\22\2\0\1\23"+
-    "\1\0\1\24\1\25\2\0\1\26\1\27\1\0\1\30"+
-    "\2\0\1\31\1\32\13\0\1\3\u01a2\0\2\3\326\0"+
-    "\u0100\3";
-
-  private static int [] zzUnpackcmap_blocks() {
-    int [] result = new int[1024];
-    int offset = 0;
-    offset = zzUnpackcmap_blocks(ZZ_CMAP_BLOCKS_PACKED_0, offset, result);
-    return result;
-  }
-
-  private static int zzUnpackcmap_blocks(String packed, int offset, int [] result) {
-    int i = 0;       /* index in packed string  */
-    int j = offset;  /* index in unpacked array */
-    int l = packed.length();
-    while (i < l) {
-      int count = packed.charAt(i++);
-      int value = packed.charAt(i++);
-      do result[j++] = value; while (--count > 0);
-    }
-    return j;
-  }
+  private static final char [] ZZ_CMAP = {
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  2,  3,  3,  2,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  1,  5,  6,  7, 
+     8,  9,  9, 10, 10, 10, 10, 10, 10, 10, 11, 12,  0, 13,  0,  0, 
+     0,  0,  0, 14,  0, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0, 16,  0, 17,  0,  0,  0,  0,  0, 18,  0,  0, 19,  0, 20, 21, 
+     0,  0, 22, 23,  0, 24,  0,  0, 25, 26,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+  };
 
   /**
    * Translates DFA states to action switch labels.
@@ -277,7 +238,6 @@ class Lexer {
   private int zzFinalHighSurrogate = 0;
 
   /** Number of newlines encountered up to the start of the matched text. */
-  @SuppressWarnings("unused")
   private int yyline;
 
   /** Number of characters from the last newline up to the start of the matched text. */
@@ -285,7 +245,6 @@ class Lexer {
   private int yycolumn;
 
   /** Number of characters up to the start of the matched text. */
-  @SuppressWarnings("unused")
   private long yychar;
 
   /** Whether the scanner is currently at the beginning of a line. */
@@ -293,11 +252,15 @@ class Lexer {
   private boolean zzAtBOL = true;
 
   /** Whether the user-EOF-code has already been executed. */
-  @SuppressWarnings("unused")
   private boolean zzEOFDone;
 
   /* user code: */
-    public String lexem;
+    private Symbol symbol (int type, Object value) {
+        return new Symbol (type,yyline,yycolumn,value);
+    }
+    private Symbol symbol (int type) {
+        return new Symbol (type,yyline,yycolumn);
+    }
 
 
   /**
@@ -305,7 +268,7 @@ class Lexer {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  Lexer(java.io.Reader in) {
+  LexerCup(java.io.Reader in) {
     this.zzReader = in;
   }
 
@@ -313,8 +276,7 @@ class Lexer {
    * Translates raw input code points to DFA table row
    */
   private static int zzCMap(int input) {
-    int offset = input & 255;
-    return offset == input ? ZZ_CMAP_BLOCKS[offset] : ZZ_CMAP_BLOCKS[ZZ_CMAP_TOP[input >> 8] | offset];
+    return ZZ_CMAP[input];
   }
 
   /**
@@ -543,6 +505,18 @@ class Lexer {
   }
 
 
+  /**
+   * Contains user EOF-code, which will be executed exactly once,
+   * when the end of file is reached
+   */
+  private void zzDoEOF() throws java.io.IOException {
+    if (!zzEOFDone) {
+      zzEOFDone = true;
+    
+  yyclose();    }
+  }
+
+
 
 
   /**
@@ -552,7 +526,7 @@ class Lexer {
    * @return the next token.
    * @exception java.io.IOException if any I/O-Error occurs.
    */
-  public Tokens yylex() throws java.io.IOException {
+  @Override  public java_cup.runtime.Symbol next_token() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -569,6 +543,61 @@ class Lexer {
     while (true) {
       zzMarkedPosL = zzMarkedPos;
 
+      yychar+= zzMarkedPosL-zzStartRead;
+
+      boolean zzR = false;
+      int zzCh;
+      int zzCharCount;
+      for (zzCurrentPosL = zzStartRead  ;
+           zzCurrentPosL < zzMarkedPosL ;
+           zzCurrentPosL += zzCharCount ) {
+        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);
+        zzCharCount = Character.charCount(zzCh);
+        switch (zzCh) {
+        case '\u000B':  // fall through
+        case '\u000C':  // fall through
+        case '\u0085':  // fall through
+        case '\u2028':  // fall through
+        case '\u2029':
+          yyline++;
+          zzR = false;
+          break;
+        case '\r':
+          yyline++;
+          zzR = true;
+          break;
+        case '\n':
+          if (zzR)
+            zzR = false;
+          else {
+            yyline++;
+          }
+          break;
+        default:
+          zzR = false;
+        }
+      }
+
+      if (zzR) {
+        // peek one character ahead if it is
+        // (if we have counted one line too much)
+        boolean zzPeek;
+        if (zzMarkedPosL < zzEndReadL)
+          zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        else if (zzAtEOF)
+          zzPeek = false;
+        else {
+          boolean eof = zzRefill();
+          zzEndReadL = zzEndRead;
+          zzMarkedPosL = zzMarkedPos;
+          zzBufferL = zzBuffer;
+          if (eof)
+            zzPeek = false;
+          else
+            zzPeek = zzBufferL[zzMarkedPosL] == '\n';
+        }
+        if (zzPeek) yyline--;
+      }
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
@@ -631,12 +660,13 @@ class Lexer {
 
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
-        return null;
+            zzDoEOF();
+          { return new java_cup.runtime.Symbol(sym.EOF); }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { lexem=yytext(); return Tokens.ERROR;
+            { return new Symbol(sym.ERROR, (int) yychar, yyline, yytext());
             }
             // fall through
           case 16: break;
@@ -646,67 +676,67 @@ class Lexer {
             // fall through
           case 17: break;
           case 3:
-            { lexem=yytext(); return Tokens.SUMA;
+            { return new Symbol(sym.SUMA, (int) yychar, yyline,yytext());
             }
             // fall through
           case 18: break;
           case 4:
-            { lexem=yytext(); return Tokens.RESTA;
+            { return new Symbol(sym.RESTA, (int) yychar, yyline,yytext());
             }
             // fall through
           case 19: break;
           case 5:
-            { lexem=yytext(); return Tokens.ENTERO_POSITIVO;
+            { return new Symbol(sym.ENTERO_POSITIVO, (int) yychar, yyline,yytext());
             }
             // fall through
           case 20: break;
           case 6:
-            { lexem=yytext(); return Tokens.ASIGNACION;
+            { return new Symbol(sym.ASIGNACION, (int) yychar, yyline,yytext());
             }
             // fall through
           case 21: break;
           case 7:
-            { lexem=yytext(); return Tokens.SEPARADOR;
+            { return new Symbol(sym.SEPARADOR, (int) yychar, yyline,yytext());
             }
             // fall through
           case 22: break;
           case 8:
-            { lexem=yytext(); return Tokens.IGUALDAD;
+            { return new Symbol(sym.IGUALDAD, (int) yychar, yyline,yytext());
             }
             // fall through
           case 23: break;
           case 9:
-            { lexem=yytext(); return Tokens.VARIABLEX;
+            { return new Symbol(sym.VARIABLEX, (int) yychar, yyline,yytext());
             }
             // fall through
           case 24: break;
           case 10:
-            { lexem=yytext(); return Tokens.VARIABLEY;
+            { return new Symbol(sym.VARIABLEY, (int) yychar, yyline,yytext());
             }
             // fall through
           case 25: break;
           case 11:
-            { lexem=yytext(); return Tokens.ENTERO_NEGATIVO;
+            { return new Symbol(sym.ENTERO_NEGATIVO, (int) yychar, yyline,yytext());
             }
             // fall through
           case 26: break;
           case 12:
-            { lexem=yytext(); return Tokens.DECIMAL_POSITIVO;
+            { return new Symbol(sym.DECIMAL_POSITIVO, (int) yychar, yyline,yytext());
             }
             // fall through
           case 27: break;
           case 13:
-            { lexem=yytext(); return Tokens.ECUACION;
+            { return new Symbol(sym.ECUACION, (int) yychar, yyline,yytext());
             }
             // fall through
           case 28: break;
           case 14:
-            { lexem=yytext(); return Tokens.DECIMAL_NEGATIVO;
+            { return new Symbol(sym.DECIMAL_NEGATIVO, (int) yychar, yyline,yytext());
             }
             // fall through
           case 29: break;
           case 15:
-            { lexem=yytext(); return Tokens.PALABRA_RESERVADA;
+            { return new Symbol(sym.PALABRA_RESERVADA, (int) yychar, yyline,yytext());
             }
             // fall through
           case 30: break;

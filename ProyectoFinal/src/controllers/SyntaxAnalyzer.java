@@ -6,6 +6,8 @@
 package controllers;
 
 import java.io.StringReader;
+import java_cup.runtime.Symbol;
+
 
 /**
  *
@@ -14,8 +16,8 @@ import java.io.StringReader;
 public class SyntaxAnalyzer {
     public static void main(String[] args) {
         // TODO code application logic here
-        String cadena = "EC1 => -2*x + 3*y = 5; \n EC2 => 3*x - 3.5*y = 3; \n solucionar ";
-        Syntax s = new Syntax(new LexerCup(new StringReader(cadena)));
+        String cadena = "EC1: -2x + 3y = 5; \n EC2 => 3*x - 3.5*y = 3; \n solucionar ";
+        Sintax s = new Sintax(new LexerCup(new StringReader(cadena)));
         try {
             s.parse();
         } catch (Exception e) {
