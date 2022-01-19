@@ -1,9 +1,12 @@
 package controllers;
-import models.Tokens;
+import java_cup.runtime.Symbol;
 %%
-%class Lexer
-%type Tokens
-
+%class LexerCup
+%type java_cup.runtime.Symbol
+%cup
+%full
+%line
+%char
 letter = [a-z]
 digit = [1-9]
 number = [0-9]
@@ -16,23 +19,31 @@ DN = "-"{digit}"."{number}
 E = {equation}{e_number}
 space=[ ,\t,\r,\n ]+
 %{
-    public String lexem;
+    private Symbol symbol (int type, Object value) {
+        return new Symbol (type,yyline,yycolumn,value);
+    }
+    private Symbol symbol (int type) {
+        return new Symbol (type,yyline,yycolumn);
+    }
 %}
 %%
+/* Espacios en blanco */
 {space} {/*Ignore*/}
-"//".* {/*Ignore*/}
-"+" {lexem=yytext(); return Tokens.SUMA;}
-"-" {lexem=yytext(); return Tokens.RESTA;}
-":" {lexem=yytext(); return Tokens.ASIGNACION;}
-"=" {lexem=yytext(); return Tokens.IGUALDAD;}
-";" {lexem=yytext(); return Tokens.SEPARADOR;}
-{P}+ {lexem=yytext(); return Tokens.ENTERO_POSITIVO;}
-{N}+ {lexem=yytext(); return Tokens.ENTERO_NEGATIVO;}
-{DP}+ {lexem=yytext(); return Tokens.DECIMAL_POSITIVO;}
-{DN}+ {lexem=yytext(); return Tokens.DECIMAL_NEGATIVO;}
-"x" {lexem=yytext(); return Tokens.VARIABLEX;}
-"y" {lexem=yytext(); return Tokens.VARIABLEY;}
-{E} {lexem=yytext(); return Tokens.ECUACION;}
-"solucionar" {lexem=yytext(); return Tokens.PALABRA_RESERVADA;}
-. {lexem=yytext(); return Tokens.ERROR;}
 
+/* Comentarios */
+("//"(.)*) {/*Ignore*/}
+
+("+") {return new Symbol(sym.SUMA, yychar, yyline,yytext());}
+("-") {return new Symbol(sym.RESTA, yychar, yyline,yytext());}
+(":") {return new Symbol(sym.ASIGNACION, yychar, yyline,yytext());}
+("=") {return new Symbol(sym.IGUALDAD, yychar, yyline,yytext());}
+(";") {return new Symbol(sym.SEPARADOR, yychar, yyline,yytext());}
+{P}+  {return new Symbol(sym.ENTERO_POSITIVO, yychar, yyline,yytext());}
+{N}+  {return new Symbol(sym.ENTERO_NEGATIVO, yychar, yyline,yytext());}
+{DP}+ {return new Symbol(sym.DECIMAL_POSITIVO, yychar, yyline,yytext());}
+{DN}+ {return new Symbol(sym.DECIMAL_NEGATIVO, yychar, yyline,yytext());}
+"x"   {return new Symbol(sym.VARIABLEX, yychar, yyline,yytext());}
+"y"   {return new Symbol(sym.VARIABLEY, yychar, yyline,yytext());}
+{E}   {return new Symbol(sym.ECUACION, yychar, yyline,yytext());}
+"solucionar" {return new Symbol(sym.PALABRA_RESERVADA, yychar, yyline,yytext());}
+.     {return new Symbol(sym.ERROR, yychar, yyline, yytext());}
