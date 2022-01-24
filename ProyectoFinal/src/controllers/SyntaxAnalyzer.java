@@ -16,7 +16,7 @@ import java_cup.runtime.Symbol;
 public class SyntaxAnalyzer {
     public static void main(String[] args) {
         // TODO code application logic here
-        String cadena = "EC1: -2x + 3y = 5; \n EC2 => 3*x - 3.5*y = 3; \n solucionar ";
+        String cadena = "EC1: -2.4x - 3.4y = 5; \n EC2: 3x - 3.3y = 3.3; \n solucionar ";
         Sintax s = new Sintax(new LexerCup(new StringReader(cadena)));
         try {
             s.parse();

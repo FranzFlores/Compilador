@@ -7,15 +7,15 @@ import java_cup.runtime.Symbol;
 %full
 %line
 %char
-letter = [a-z]
-digit = [1-9]
-number = [0-9]
+digit = [1-9]+
+number = [0-9]+
 equation = "EC"
 e_number = [1-2]
 P = "+"?{digit}
 N = "-"{digit}
 DP = "+"?{digit}"."{number}
 DN = "-"{digit}"."{number}
+
 E = {equation}{e_number}
 space=[ ,\t,\r,\n ]+
 %{
@@ -38,10 +38,7 @@ space=[ ,\t,\r,\n ]+
 (":") {return new Symbol(sym.ASIGNACION, yychar, yyline,yytext());}
 ("=") {return new Symbol(sym.IGUALDAD, yychar, yyline,yytext());}
 (";") {return new Symbol(sym.SEPARADOR, yychar, yyline,yytext());}
-{P}+  {return new Symbol(sym.ENTERO_POSITIVO, yychar, yyline,yytext());}
-{N}+  {return new Symbol(sym.ENTERO_NEGATIVO, yychar, yyline,yytext());}
-{DP}+ {return new Symbol(sym.DECIMAL_POSITIVO, yychar, yyline,yytext());}
-{DN}+ {return new Symbol(sym.DECIMAL_NEGATIVO, yychar, yyline,yytext());}
+{P}|{N}|{DP}|{DN} {return new Symbol(sym.NUMERO, yychar, yyline,yytext());}
 "x"   {return new Symbol(sym.VARIABLEX, yychar, yyline,yytext());}
 "y"   {return new Symbol(sym.VARIABLEY, yychar, yyline,yytext());}
 {E}   {return new Symbol(sym.ECUACION, yychar, yyline,yytext());}
