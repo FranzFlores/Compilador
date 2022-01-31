@@ -9,14 +9,11 @@ import java_cup.runtime.Symbol;
 %char
 digit = [1-9]+
 number = [0-9]+
-equation = "EC"
-e_number = [1-2]
 P = "+"?{digit}
 N = "-"{digit}
 DP = "+"?{digit}"."{number}
 DN = "-"{digit}"."{number}
 
-E = {equation}{e_number}
 space=[ ,\t,\r,\n ]+
 %{
     private Symbol symbol (int type, Object value) {
@@ -42,6 +39,7 @@ space=[ ,\t,\r,\n ]+
 {N}|{DN} {return new Symbol(sym.NUMERO_NEGATIVO, yychar, yyline,yytext());}
 "x"   {return new Symbol(sym.VARIABLEX, yychar, yyline,yytext());}
 "y"   {return new Symbol(sym.VARIABLEY, yychar, yyline,yytext());}
-{E}   {return new Symbol(sym.ECUACION, yychar, yyline,yytext());}
+"EC1"   {return new Symbol(sym.ECUACION1, yychar, yyline,yytext());}
+"EC2"   {return new Symbol(sym.ECUACION2, yychar, yyline,yytext());}
 "solucionar" {return new Symbol(sym.PALABRA_RESERVADA, yychar, yyline,yytext());}
 .     {return new Symbol(sym.ERROR, yychar, yyline, yytext());}
