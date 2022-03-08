@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package backup;
 
 /**
  *
  * @author Smart
  */
-public enum Tokens {
-    SUMA,RESTA,ASIGNACION,IGUALDAD,SEPARADOR,ENTERO_POSITIVO,ENTERO_NEGATIVO,
-    DECIMAL_POSITIVO,DECIMAL_NEGATIVO,VARIABLEX,VARIABLEY,ECUACION,PALABRA_RESERVADA,ERROR;
+public enum Tokensv1 {
+    SUMA,RESTA,MULTIPLICACION,ASIGNACION,IGUALDAD,SEPARACION,DECIMAL,
+    ENTERO,VARIABLEX,VARIABLEY,ECUACION1,ECUACION2,SOLUCIONAR,ERROR;
 }

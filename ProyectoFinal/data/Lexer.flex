@@ -1,6 +1,7 @@
 package controllers;
 import java_cup.runtime.Symbol;
 %%
+%public
 %class LexerCup
 %type java_cup.runtime.Symbol
 %cup
@@ -9,8 +10,8 @@ import java_cup.runtime.Symbol;
 %char
 digit = [1-9]+
 number = [0-9]+
-P = "+"?{digit}
-N = "-"{digit}
+P = "+"?{number}
+N = "-"{number}
 DP = "+"?{digit}"."{number}
 DN = "-"{digit}"."{number}
 

@@ -13,28 +13,28 @@ import java.nio.file.Paths;
  *
  * @author Alejandro
  */
-public class CreateFile {
+public class GenerateFiles {
 
     public static void main(String[] args) {
         try {
             String pathCup = "data" + File.separatorChar;
             String[] paths = {pathCup + "Lexer.flex"};
 
-            String[] paths$ = {"-parser", "Sintax", pathCup + "Syntax.cup"};
+            String[] paths$ = {"-parser", "Syntax", pathCup + "Syntax.cup"};
             java_cup.Main.main(paths$);
             jflex.Main.generate(paths);
 
             Path sym = Paths.get(System.getProperty("user.dir") + File.separatorChar + "src" + File.separatorChar + "controllers" + File.separatorChar + "sym.java");
             deletePath(sym);
 
-            Path sym1 = Paths.get(System.getProperty("user.dir") + File.separatorChar + "src" + File.separatorChar + "controllers" + File.separatorChar + "Sintax.java");
+            Path sym1 = Paths.get(System.getProperty("user.dir") + File.separatorChar + "src" + File.separatorChar + "controllers" + File.separatorChar + "Syntax.java");
             deletePath(sym1);
 
             Path lex = Paths.get(System.getProperty("user.dir") + File.separatorChar + "src" + File.separatorChar + "controllers" + File.separatorChar + "LexerCup.java");
             deletePath(lex);
 
             Files.move(Paths.get(System.getProperty("user.dir") + File.separatorChar + "sym.java"), sym);
-            Files.move(Paths.get(System.getProperty("user.dir") + File.separatorChar + "Sintax.java"), sym1);
+            Files.move(Paths.get(System.getProperty("user.dir") + File.separatorChar + "Syntax.java"), sym1);
             Files.move(Paths.get(pathCup + "LexerCup.java"), lex);
 
         } catch (Exception e) {
