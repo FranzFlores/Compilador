@@ -45,7 +45,7 @@ SENTENCIA_EC1 ::=
 {:
     Double a = Double.parseDouble(n1.toString());
     Double b = 0.0;
-    if(Utilities.validateNumber(Double.parseDouble(n1.toString()))) {
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
         b = Double.parseDouble(n2.toString())*(-1);   
     } else {
         throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
@@ -54,15 +54,102 @@ SENTENCIA_EC1 ::=
     E1 = Utilities.setEquationData(a,b,c);
 :}
 |
-  ECUACION1 ASIGNACION NUMERO:n1 VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+  ECUACION1 ASIGNACION VARIABLEX SUMA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
 {:
-    Double a = Double.parseDouble(n1.toString());
+    Double a = 1.0;
+    Double b = 1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION VARIABLEX RESTA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = 1.0;
+    Double b = -1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION VARIABLEX SUMA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = 1.0;
     Double b = 0.0;
-    if(Utilities.validateNumber(Double.parseDouble(n1.toString()))) {
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString());   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = 1.0;
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
         b = Double.parseDouble(n2.toString())*(-1);   
     } else {
         throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
     }
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION RESTA VARIABLEX SUMA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = 1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION RESTA VARIABLEX RESTA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = -1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION RESTA VARIABLEX SUMA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString());   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION RESTA VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString())*(-1);   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION NUMERO:n1 VARIABLEX SUMA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = Double.parseDouble(n1.toString());
+    Double b = 1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION NUMERO:n1 VARIABLEX RESTA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = Double.parseDouble(n1.toString());
+    Double b = -1.0;
     Double c = Double.parseDouble(n3.toString());
     E1 = Utilities.setEquationData(a,b,c);
 :}
@@ -94,6 +181,106 @@ SENTENCIA_EC2 ::=
     Double c = Double.parseDouble(n3.toString());
     E2 = Utilities.setEquationData(a,b,c);
 :} 
+|
+  ECUACION2 ASIGNACION VARIABLEX SUMA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = 1.0;
+    Double b = 1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION VARIABLEX RESTA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = 1.0;
+    Double b = -1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION VARIABLEX SUMA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = 1.0;
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString());   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = 1.0;
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString())*(-1);   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION RESTA VARIABLEX SUMA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = 1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION RESTA VARIABLEX RESTA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = -1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION RESTA VARIABLEX SUMA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString());   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION RESTA VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = -1.0;
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString())*(-1);   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION NUMERO:n1 VARIABLEX SUMA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = Double.parseDouble(n1.toString());
+    Double b = 1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION2 ASIGNACION NUMERO:n1 VARIABLEX RESTA VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = Double.parseDouble(n1.toString());
+    Double b = -1.0;
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:}
 ;
 
 SOLUCION ::= PALABRA_RESERVADA
