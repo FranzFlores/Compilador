@@ -2,6 +2,7 @@ package controllers;
 import java_cup.runtime.Symbol;
 import models.Equation;
 import utilities.Utilities;
+import errors.NegativeNumberException;
 
 parser code
 {:
@@ -18,51 +19,81 @@ parser code
 action code 
 {:
     public Equation E1,E2;
-    public Double x,y;
 :}
 
-terminal SUMA,RESTA,ASIGNACION,IGUALDAD,SEPARADOR,NUMERO_POSITIVO,NUMERO_NEGATIVO,
+terminal SUMA,RESTA,ASIGNACION,IGUALDAD,SEPARADOR,NUMERO,
 VARIABLEX,VARIABLEY,ECUACION1,ECUACION2,PALABRA_RESERVADA,ERROR;
 
 non terminal SENTENCIA,SENTENCIA_EC1,SENTENCIA_EC2,SOLUCION;
 
 start with SENTENCIA;
 SENTENCIA_EC1 ::= 
-  ECUACION1 ASIGNACION NUMERO_POSITIVO:n1 VARIABLEX SUMA NUMERO_POSITIVO:n2 VARIABLEY IGUALDAD NUMERO_POSITIVO:n3 SEPARADOR 
+  ECUACION1 ASIGNACION NUMERO:n1 VARIABLEX SUMA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
 {:
     Double a = Double.parseDouble(n1.toString());
-    Double b = Double.parseDouble(n2.toString());
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString());   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
     Double c = Double.parseDouble(n3.toString());
     E1 = Utilities.setEquationData(a,b,c);
 :} 
 |
-  ECUACION1 ASIGNACION NUMERO_NEGATIVO VARIABLEX SUMA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_POSITIVO SEPARADOR |
-  ECUACION1 ASIGNACION NUMERO_POSITIVO VARIABLEX SUMA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR |
-  ECUACION1 ASIGNACION NUMERO_NEGATIVO VARIABLEX SUMA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR |
-
-  ECUACION1 ASIGNACION NUMERO_POSITIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_POSITIVO SEPARADOR |
-  ECUACION1 ASIGNACION NUMERO_NEGATIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_POSITIVO SEPARADOR |
-  ECUACION1 ASIGNACION NUMERO_POSITIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR |
-  ECUACION1 ASIGNACION NUMERO_NEGATIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR 
+  ECUACION1 ASIGNACION NUMERO:n1 VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = Double.parseDouble(n1.toString());
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n1.toString()))) {
+        b = Double.parseDouble(n2.toString())*(-1);   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
+|
+  ECUACION1 ASIGNACION NUMERO:n1 VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR 
+{:
+    Double a = Double.parseDouble(n1.toString());
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n1.toString()))) {
+        b = Double.parseDouble(n2.toString())*(-1);   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E1 = Utilities.setEquationData(a,b,c);
+:}
 ;
 
 SENTENCIA_EC2 ::= 
-  ECUACION2 ASIGNACION NUMERO_POSITIVO:n1 VARIABLEX SUMA NUMERO_POSITIVO:n2 VARIABLEY IGUALDAD NUMERO_POSITIVO:n3 SEPARADOR
+ ECUACION2 ASIGNACION NUMERO:n1 VARIABLEX SUMA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR
 {:
     Double a = Double.parseDouble(n1.toString());
-    Double b = Double.parseDouble(n2.toString());
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString());   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
     Double c = Double.parseDouble(n3.toString());
     E2 = Utilities.setEquationData(a,b,c);
 :} 
 |
-  ECUACION2 ASIGNACION NUMERO_NEGATIVO VARIABLEX SUMA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_POSITIVO SEPARADOR |
-  ECUACION2 ASIGNACION NUMERO_POSITIVO VARIABLEX SUMA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR |
-  ECUACION2 ASIGNACION NUMERO_NEGATIVO VARIABLEX SUMA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR |
-
-  ECUACION2 ASIGNACION NUMERO_POSITIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_POSITIVO SEPARADOR |
-  ECUACION2 ASIGNACION NUMERO_NEGATIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_POSITIVO SEPARADOR |
-  ECUACION2 ASIGNACION NUMERO_POSITIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR |
-  ECUACION2 ASIGNACION NUMERO_NEGATIVO VARIABLEX RESTA NUMERO_POSITIVO VARIABLEY IGUALDAD NUMERO_NEGATIVO SEPARADOR 
+ ECUACION2 ASIGNACION NUMERO:n1 VARIABLEX RESTA NUMERO:n2 VARIABLEY IGUALDAD NUMERO:n3 SEPARADOR
+{:
+    Double a = Double.parseDouble(n1.toString());
+    Double b = 0.0;
+    if(Utilities.validateNumber(Double.parseDouble(n2.toString()))) {
+        b = Double.parseDouble(n2.toString())*(-1);   
+    } else {
+        throw new NegativeNumberException("Por favor quitar el signo - en el coeficiente de la Variable y");
+    }
+    Double c = Double.parseDouble(n3.toString());
+    E2 = Utilities.setEquationData(a,b,c);
+:} 
 ;
 
 SOLUCION ::= PALABRA_RESERVADA

@@ -36,8 +36,7 @@ space=[ ,\t,\r,\n ]+
 (":") {return new Symbol(sym.ASIGNACION, yychar, yyline,yytext());}
 ("=") {return new Symbol(sym.IGUALDAD, yychar, yyline,yytext());}
 (";") {return new Symbol(sym.SEPARADOR, yychar, yyline,yytext());}
-{P}|{DP} {return new Symbol(sym.NUMERO_POSITIVO, yychar, yyline,yytext());}
-{N}|{DN} {return new Symbol(sym.NUMERO_NEGATIVO, yychar, yyline,yytext());}
+{P}|{DP}|{N}|{DN} {return new Symbol(sym.NUMERO, yychar, yyline,yytext());}
 "x"   {return new Symbol(sym.VARIABLEX, yychar, yyline,yytext());}
 "y"   {return new Symbol(sym.VARIABLEY, yychar, yyline,yytext());}
 "EC1"   {return new Symbol(sym.ECUACION1, yychar, yyline,yytext());}

@@ -16,11 +16,11 @@ import java_cup.runtime.Symbol;
 public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
-        String cadena = "EC1: 2x + 3y = 20; \n EC2: 3x + 2y = 23; \n solucionar ";
+        String cadena = "EC1: 3x + 2y = 7; \n EC2: 4x - 3y = -2; \n solucionar ";
         Syntax s = new Syntax(new LexerCup(new StringReader(cadena)));
         try {
             s.parse();
-//            System.out.println("Ejecución Exitosa");
+            System.out.println("Ejecución Exitosa");
         } catch (Exception e) {
             e.printStackTrace();
             Symbol sym = s.getS();

@@ -11,6 +11,10 @@ import models.Equation;
  * @author andre
  */
 public class Utilities {
+    //Operation: 2(Suma), 3(Resta) 
+    public static boolean validateNumber(Double number){
+        return number >= 0;
+    }
     
     public static Equation setEquationData(Double A, Double B, Double C) {
         Equation e = new Equation(A,B,C);
