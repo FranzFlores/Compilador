@@ -19,7 +19,7 @@ public class Main {
         String cadena = "EC1: -2x + y = 7; \n EC2: -6x - 2y = -4; \n solucionar ";
         Syntax s = new Syntax(new LexerCup(new StringReader(cadena)));
         try {
-            s.parse();
+            s.parse();           
             System.out.println("Ejecución Exitosa");
         } catch (Exception e) {
             e.printStackTrace();

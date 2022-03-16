@@ -12,6 +12,7 @@ import models.Equation;
  */
 public class Utilities {
     //Operation: 2(Suma), 3(Resta) 
+    private Double X,Y;
     public static boolean validateNumber(Double number){
         return number >= 0;
     }
@@ -23,16 +24,31 @@ public class Utilities {
     
     public static Double resolveX(Equation E1, Equation E2){
         Double x = ((E1.getC()*E2.getB()) - (E1.getB()*E2.getC()))/((E1.getA()*E2.getB())-(E1.getB()*E2.getA()));
+        x = Math.floor(x *100)/100;
         System.out.println("Resultado de X: " + x);
         return x;
     }
     
     public static Double resolveY(Equation E1, Equation E2){
         Double y = ((E1.getA()*E2.getC())-(E1.getC()*E2.getA()))/((E1.getA()*E2.getB())-(E1.getB()*E2.getA())); 
+        y = Math.floor(y*100)/100;
         System.out.println("Resultado de Y: " + y);
         return y;
     }
     
+    public void setVariableX(Double X) {
+      this.X = X;
+    }
     
-    
+    public void setVariableY(Double Y) {
+       this.Y =Y;
+    }
+
+    public Double getX() {
+        return X;
+    }
+
+    public Double getY() {
+        return Y;
+    }
 }

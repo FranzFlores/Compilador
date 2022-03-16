@@ -285,8 +285,8 @@ SENTENCIA_EC2 ::=
 
 SOLUCION ::= PALABRA_RESERVADA
 {:
-    Utilities.resolveX(E1,E2);
-    Utilities.resolveY(E1,E2);
+    Syntax.X = Utilities.resolveX(E1,E2);
+    Syntax.Y = Utilities.resolveY(E1,E2);
 :};
 
 SENTENCIA ::= SENTENCIA_EC1 SENTENCIA_EC2 SOLUCION;
