@@ -12,7 +12,6 @@ import models.Equation;
  */
 public class Utilities {
     //Operation: 2(Suma), 3(Resta) 
-    private Double X,Y;
     public static boolean validateNumber(Double number){
         return number >= 0;
     }
@@ -36,19 +35,4 @@ public class Utilities {
         return y;
     }
     
-    public void setVariableX(Double X) {
-      this.X = X;
-    }
-    
-    public void setVariableY(Double Y) {
-       this.Y =Y;
-    }
-
-    public Double getX() {
-        return X;
-    }
-
-    public Double getY() {
-        return Y;
-    }
 }
