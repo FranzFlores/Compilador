@@ -10,10 +10,7 @@ import java_cup.runtime.Symbol;
 %char
 digit = [1-9]+
 number = [0-9]+
-P = "+"?{number}
-N = "-"{number}
-DP = "+"?{digit}"."{number}
-DN = "-"{digit}"."{number}
+N = "-"?{digit}"."?{number}?
 
 space=[ ,\t,\r,\n ]+
 %{
@@ -36,7 +33,7 @@ space=[ ,\t,\r,\n ]+
 (":") {return new Symbol(sym.ASIGNACION, yychar, yyline,yytext());}
 ("=") {return new Symbol(sym.IGUALDAD, yychar, yyline,yytext());}
 (";") {return new Symbol(sym.SEPARADOR, yychar, yyline,yytext());}
-{P}|{DP}|{N}|{DN} {return new Symbol(sym.NUMERO, yychar, yyline,yytext());}
+{N} {return new Symbol(sym.NUMERO, yychar, yyline,yytext());}
 "x"   {return new Symbol(sym.VARIABLEX, yychar, yyline,yytext());}
 "y"   {return new Symbol(sym.VARIABLEY, yychar, yyline,yytext());}
 "EC1"   {return new Symbol(sym.ECUACION1, yychar, yyline,yytext());}
